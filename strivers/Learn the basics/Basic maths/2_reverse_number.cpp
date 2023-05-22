@@ -62,18 +62,36 @@ using namespace std;
 
 int reverse(int x)
 {
-    int reversed_no = 0;
-    int length = log10(abs(x)) + 1;
-
-    while (x > 0)
+    long long int reversed_no = 0;
+    int num;
+    if (x < 0)
     {
-        int last_digit = x % 10;
-        for (int i = length; i >= 1; i--)
-        {
-            reversed_no = reversed_no + last_digit * pow(10, i);
-            cout<<reversed_no<<endl;
-        }
-        x = x / 10;
+        num = abs(x);
+    }
+    else if (x > 0)
+    {
+        num = x;
+    }
+    else
+    {
+        return 0;
+    }
+
+    while (num > 0)
+    {
+        int last_digit = num % 10;
+        reversed_no = (reversed_no * 10) + last_digit;
+        num /= 10;
+    }
+
+    if (reversed_no > INT_MAX || reversed_no < INT_MIN)
+    {
+        return 0;
+    }
+
+    if (x < 0)
+    {
+        return reversed_no * (-1);
     }
 
     return reversed_no;
